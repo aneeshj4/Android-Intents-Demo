@@ -20,8 +20,9 @@ public class NewActivity extends AppCompatActivity {
 
         textView = (TextView)findViewById(R.id.textView);
 
-        // TODO: 10/24/15 Get intent to set the message
-
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        textView.setText(message);
 
 
 

@@ -27,12 +27,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // TODO: 10/24/15 Bind the variables to views in the layout
+        startActivityButton = (Button)findViewById(R.id.startActivityButton);
+        getPhotosButton = (Button)findViewById(R.id.getPhotosButton);
+        openMapsButton = (Button)findViewById(R.id.openMapsButton);
+        editText = (EditText)findViewById(R.id.editText);
+        imageView = (ImageView)findViewById(R.id.imageView);
 
         startActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                // TODO: 10/24/15 Insert code here 
+            public void onClick(View v) {
+                String message = editText.getText().toString();
+                Intent intent = new Intent(getApplicationContext(), NewActivity.class);
+                intent.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intent);
             }
         });
 
@@ -41,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                // TODO: 10/24/15 Start the activity
+                startActivityForResult(intent, SELECT_IMAGE);
             }
         });
 
@@ -63,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_IMAGE) {
                 Uri selectedImageUri = data.getData();
-                // TODO: 10/24/15 Something 
+                imageView.setImageURI(selectedImageUri);
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
